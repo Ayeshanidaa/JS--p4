@@ -1,28 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grocery List with Expiration Alerts</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Lobster&family=Satisfy&display=swap"
-        rel="stylesheet">
+    <title>Image Zoom-In and Zoom-Out</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f4f4f4;
+            overflow: hidden;
+        }
+        .image-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            width: 200px;
+            height: 200px;
+            border: 2px solid #000;
+            cursor: pointer;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.3s ease;
+            position: absolute;
+        }
+        .controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .image-container:hover .controls {
+            opacity: 1;
+        }
+        .zoom-btn {
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
-
 <body>
-    <div class="container">
-        <h1>Grocery List with Expiration Alerts</h1>
-        <form id="grocery-form">
-            <input type="text" id="item" placeholder="Grocery Item" required>
-            <input type="date" id="expiration-date" required>
-            <button type="submit">Add Item</button>
-        </form>
-        <ul id="grocery-list"></ul>
+    <div class="heading">
+        <h1>Zoom-In & zoom-Out</h1>
     </div>
-    <script src="script.js"></script>
-</body>
+    <div class="image-row">
+        <div class="image-container" id="imageContainer1">
+            <img src="https://i.pinimg.com/736x/b4/67/66/b46766c7bc7e3cfa4a481e295fed98c3.jpg" id="image1" alt="Zoomable Image 1">
+            <div class="controls">
+                <button class="zoom-btn" id="zoomIn1">+</button>
+                <button class="zoom-btn" id="zoomOut1">-</button>
+            </div>
+        </div>
+        <div class="image-container" id="imageContainer2">
+            <img src="https://i.pinimg.com/736x/8f/a3/62/8fa36278ffca26a72e8b6ac134c5897f.jpg" id="image2" alt="Zoomable Image 2">
+            <div class="controls">
+                <button class="zoom-btn" id="zoomIn2">+</button>
+                <button class="zoom-btn" id="zoomOut2">-</button>
+            </div>
+        </div>
+        <div class="image-container" id="imageContainer3">
+            <img src="https://i.pinimg.com/736x/70/1b/77/701b77f313e4e0b76cf4817d752760b7.jpg" id="image3" alt="Zoomable Image 3">
+            <div class="controls">
+                <button class="zoom-btn" id="zoomIn3">+</button>
+                <button class="zoom-btn" id="zoomOut3">-</button>
+            </div>
+        </div>
+        <div class="image-container" id="imageContainer4">
+            <img src="https://i.pinimg.com/736x/ca/f0/0d/caf00d01d80346ed75e765cb5693354d.jpg" id="image4" alt="Zoomable Image 4">
+            <div class="controls">
+                <button class="zoom-btn" id="zoomIn4">+</button>
+                <button class="zoom-btn" id="zoomOut4">-</button>
+            </div>
+        </div>
+    </div>
 
+    <div class="image-row">
+        <div class="image-container" id="imageContainer5">
+            <img src="https://i.pinimg.com/736x/0a/16/f6/0a16f63e8542583936a8d5838c60bcc9.jpg" id="image5" alt="Zoomable Image 5">
+            <div class="controls">
+                <button class="zoom-btn" id="zoomIn5">+</button>
+                <button class="zoom-btn" id="zoomOut5">-</button>
+            </div>
+        </div>
+        <div class="image-container" id="imageContainer6">
+            <img src="https://i.pinimg.com/736x/2a/ca/ef/2acaef1d7f1582db740e87ab6619eae7.jpg" id="image6" alt="Zoomable Image 6" >
+            <div class="controls">
+                <button class="zoom-btn" id="zoomIn6">+</button>
+                <button class="zoom-btn" id="zoomOut6">-</button>
+            </div>
+        </div>
+        <div class="image-container" id="imageContainer7">
+            <img src="https://i.pinimg.com/736x/a2/9d/81/a29d8187931f1153c446464cc3d26818.jpg" id="image7" alt="Zoomable Image 7">
+            <div class="controls">
+                <button class="zoom-btn" id="zoomIn7">+</button>
+                <button class="zoom-btn" id="zoomOut7">-</button>
+            </div>
+        </div>
+        <div class="image-container" id="imageContainer8">
+            <img src="https://i.pinimg.com/736x/c2/49/71/c24971823486b1a2f7d566014be6aacc.jpg" id="image8" alt="Zoomable Image 8" >
+            <div class="controls">
+                <button class="zoom-btn" id="zoomIn8">+</button>
+                <button class="zoom-btn" id="zoomOut8">-</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const images = document.querySelectorAll("img");
+        const zoomInBtns = document.querySelectorAll("[id^=zoomIn]");
+        const zoomOutBtns = document.querySelectorAll("[id^=zoomOut]");
+        let scales = Array(images.length).fill(1);
+
+        zoomInBtns.forEach((btn, index) => {
+            btn.addEventListener("click", () => {
+                scales[index] += 0.2;
+                images[index].style.transform = `scale(${scales[index]})`;
+            });
+        });
+
+        zoomOutBtns.forEach((btn, index) => {
+            btn.addEventListener("click", () => {
+                if (scales[index] > 1) {
+                    scales[index] -= 0.2;
+                    images[index].style.transform = `scale(${scales[index]})`;
+                }
+            });
+        });
+ 
+
+    </script>
+</body>
 </html>
